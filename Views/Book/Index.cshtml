@@ -1,0 +1,29 @@
+@model List<Book>
+
+<h1>Danh sách sách</h1>
+<p>Trang này dùng để kiểm tra middleware ghi log request.</p>
+<a class="btn" asp-action="Create">+ Thêm sách</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên sách</th>
+            <th>Tác giả</th>
+            <th>Giá</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var book in Model)
+    {
+        <tr>
+            <td>@book.Id</td>
+            <td>@book.Name</td>
+            <td>@book.Author</td>
+            <td>@book.Price.ToString("N0") VNĐ</td>
+            <td><a asp-action="Detail" asp-route-id="@book.Id">Xem chi tiết</a></td>
+        </tr>
+    }
+    </tbody>
+</table>

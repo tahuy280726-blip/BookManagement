@@ -1,0 +1,8 @@
+@model Book
+
+<h1>Chi tiết sách</h1>
+<p><strong>ID:</strong> @Model.Id</p>
+<p><strong>Tên sách:</strong> @Model.Name</p>
+<p><strong>Tác giả:</strong> @Model.Author</p>
+<p><strong>Giá:</strong> @Model.Price.ToString("N0") VNĐ</p>
+<a class="btn" asp-action="Index">Quay lại</a>

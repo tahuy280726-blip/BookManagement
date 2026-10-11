@@ -1,7 +1,7 @@
 @model List<Book>
 
 <h1>Danh sách sách</h1>
-<p>Trang này dùng để kiểm tra middleware ghi log request.</p>
+<p>Danh sách hiển thị tên, giá và hình ảnh. Middleware vẫn ghi log mọi request.</p>
 <a class="btn" asp-action="Create">+ Thêm sách</a>
 
 <table>
@@ -9,8 +9,8 @@
         <tr>
             <th>ID</th>
             <th>Tên sách</th>
-            <th>Tác giả</th>
             <th>Giá</th>
+            <th>Hình ảnh</th>
             <th>Thao tác</th>
         </tr>
     </thead>
@@ -20,8 +20,22 @@
         <tr>
             <td>@book.Id</td>
             <td>@book.Name</td>
-            <td>@book.Author</td>
             <td>@book.Price.ToString("N0") VNĐ</td>
+            <td>
+                @if (book.ImageUrls.Count > 0)
+                {
+                    <div class="image-list">
+                        @foreach (var imageUrl in book.ImageUrls)
+                        {
+                            <img src="@imageUrl" alt="@book.Name" class="book-thumb" />
+                        }
+                    </div>
+                }
+                else
+                {
+                    <span>Chưa có ảnh</span>
+                }
+            </td>
             <td><a asp-action="Detail" asp-route-id="@book.Id">Xem chi tiết</a></td>
         </tr>
     }

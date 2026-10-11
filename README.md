@@ -1,46 +1,29 @@
-# BookManagement - Middleware Assignment (.NET 10)
+# BookManagement - ASP.NET Core .NET 10
 
-## Môi trường
-- ASP.NET Core MVC
-- .NET 10
-- Visual Studio Community
+Project bài Middleware + Upload hình ảnh cho module Book Management.
 
-## Chức năng đã làm
-1. RequestLoggingMiddleware ghi Method + Path trước khi request đi vào Controller.
-2. Ghi Status Code sau khi request xử lý xong.
-3. Ghi thời gian xử lý request bằng milliseconds.
-4. Chặn `/Book/Detail/0` và `/Book/Detail/-1`, trả status 400 và nội dung `Book id không hợp lệ`.
-5. BookController có Index, Detail, Create và Validation bằng Data Annotation + ModelState.
+## Chạy project
+1. Mở `BookManagement.csproj` bằng Visual Studio Community có .NET 10 SDK.
+2. Nhấn `F5` hoặc `Ctrl + F5`.
+3. Truy cập `/Book`.
 
-## Cách chạy
-1. Mở `BookManagement.csproj` bằng Visual Studio Community.
-2. Chọn framework .NET 10.
-3. Nhấn `Ctrl + F5` hoặc `F5`.
-4. Truy cập:
-   - `/Book`
-   - `/Book/Detail/1`
-   - `/Book/Create`
-   - `/Book/Detail/0` để kiểm tra status 400.
-   - `/Book/Detail/-1` để kiểm tra status 400.
-5. Mở cửa sổ **Output** hoặc **Debug Console** để xem log.
+## Chức năng Middleware
+- Ghi thời gian, Method, Path.
+- Ghi Status Code sau `await _next(context)`.
+- Chặn `/Book/Detail/0` và `/Book/Detail/-1` với Status Code 400.
 
-## Câu hỏi báo cáo
-### 1. Middleware dùng để làm gì?
-Middleware là thành phần trung gian trong pipeline HTTP, dùng để xử lý request trước khi đến Controller và có thể xử lý response sau khi Controller xử lý xong.
+## Chức năng Upload hình ảnh
+- Form Create cho phép chọn 1 hoặc nhiều ảnh.
+- Chấp nhận JPG/JPEG/PNG.
+- File khác sẽ báo lỗi.
+- Ảnh được lưu tại `wwwroot/uploads/books/`.
+- Danh sách sách hiển thị Tên, Giá, Hình ảnh.
+- Trang Detail hiển thị các ảnh đã upload.
 
-### 2. Middleware khác Controller ở điểm nào?
-Middleware xử lý request/response ở mức pipeline và có thể áp dụng cho nhiều URL. Controller xử lý nghiệp vụ cụ thể của từng route/action và trả về View, dữ liệu hoặc response.
-
-### 3. `await _next(context);` có ý nghĩa gì?
-Nó chuyển request sang middleware tiếp theo trong pipeline. Nếu middleware tiếp theo là routing/controller thì request có thể tiếp tục đến Controller.
-
-### 4. Vì sao `return;` khiến request không vào Controller?
-Vì middleware kết thúc phương thức `InvokeAsync` ngay tại đó và không gọi `_next(context)`, nên pipeline không được chuyển tiếp.
-
-### 5. Nếu đặt middleware sau `app.MapControllerRoute(...)`?
-Có thể middleware không nằm đúng vị trí trong pipeline để xử lý các request đến Controller. Middleware nên được đăng ký trước endpoint mapping để chắc chắn request đi qua middleware trước khi endpoint được thực thi.
-
-### 6. Muốn thêm middleware khác?
-Có thể đăng ký tiếp, ví dụ:
-`app.UseMiddleware<AnotherMiddleware>();`
-Thứ tự đăng ký quyết định thứ tự request đi qua các middleware.
+## Cách test upload
+1. Vào `/Book/Create`.
+2. Nhập tên sách và giá > 0.
+3. Chọn một hoặc nhiều file `.jpg`, `.jpeg`, `.png`.
+4. Bấm `Lưu sách`.
+5. Quay về `/Book` để thấy ảnh.
+6. Thử chọn `.txt` hoặc `.pdf` để minh chứng báo lỗi định dạng.

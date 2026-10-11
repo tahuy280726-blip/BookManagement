@@ -20,6 +20,14 @@
         .validation { color: #dc2626; }
         footer { text-align: center; color: #666; padding: 20px; }
     </style>
+
+<style>
+    .image-list { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+    .book-thumb { width:90px; height:110px; object-fit:cover; border:1px solid #ddd; border-radius:6px; }
+    .book-image { width:220px; height:280px; object-fit:cover; border:1px solid #ddd; border-radius:8px; }
+    .detail-images { margin:12px 0 20px; }
+    small { display:block; margin-top:5px; color:#666; }
+</style>
 </head>
 <body>
     <nav>
@@ -30,5 +38,6 @@
         @RenderBody()
     </main>
     <footer>ASP.NET Core MVC - .NET 10 - Middleware Assignment</footer>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -16,5 +16,8 @@ namespace BookManagement.Models
 
         [Display(Name = "Tác giả")]
         public string Author { get; set; } = string.Empty;
+
+        // Lưu đường dẫn tương đối của các ảnh đã upload.
+        public List<string> ImageUrls { get; set; } = new();
     }
 }

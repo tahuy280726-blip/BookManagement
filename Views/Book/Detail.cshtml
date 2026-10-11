@@ -5,4 +5,20 @@
 <p><strong>Tên sách:</strong> @Model.Name</p>
 <p><strong>Tác giả:</strong> @Model.Author</p>
 <p><strong>Giá:</strong> @Model.Price.ToString("N0") VNĐ</p>
+
+<h3>Hình ảnh</h3>
+@if (Model.ImageUrls.Count > 0)
+{
+    <div class="image-list detail-images">
+        @foreach (var imageUrl in Model.ImageUrls)
+        {
+            <img src="@imageUrl" alt="@Model.Name" class="book-image" />
+        }
+    </div>
+}
+else
+{
+    <p>Chưa có hình ảnh.</p>
+}
+
 <a class="btn" asp-action="Index">Quay lại</a>

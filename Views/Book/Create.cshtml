@@ -2,8 +2,8 @@
 
 <h1>Thêm sách</h1>
 
-<form asp-action="Create" method="post">
-    <div asp-validation-summary="ModelOnly" class="validation"></div>
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="validation"></div>
 
     <div class="field">
         <label asp-for="Name"></label>
@@ -21,6 +21,12 @@
         <label asp-for="Price"></label>
         <input asp-for="Price" type="number" step="0.01" />
         <span asp-validation-for="Price" class="validation"></span>
+    </div>
+
+    <div class="field">
+        <label for="images">Hình ảnh sách (có thể chọn 1 hoặc nhiều ảnh)</label>
+        <input id="images" name="images" type="file" accept=".jpg,.png" multiple />
+        <small>Chỉ chấp nhận JPG hoặc PNG, có thể chọn một hoặc nhiều ảnh.</small>
     </div>
 
     <button class="btn" type="submit">Lưu sách</button>
